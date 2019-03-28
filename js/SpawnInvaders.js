@@ -8,13 +8,12 @@ class Invader extends HTMLElement {
         if(typeof Invader.count == 'undefined') {
             Invader.count = 0;
             Invader.speed = 10;
-            Invader.usedNumbers = [];
         } else {
             Invader.count++;
         }
         var randomIndex = Math.floor(Math.random() * wordArray.length);
         this.wordThing = wordArray[randomIndex];
-        Invader.usedNumbers.push(randomIndex)
+        this.direction = Math.random() < 0.5 ? -1 : 1;
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
@@ -25,17 +24,19 @@ class Invader extends HTMLElement {
         this.style.position = 'absolute';
         this.style.top = '0px';
         this.style.left = '500px'
-        this.x = 500;
+        this.y = 0;
+        this.x = Math.floor(Math.random() * window.innerWidth);
         this.startMove();
     }
 
     startMove() {
         var thisElement = document.getElementById(this.key);
-        var startX = this.x;
-        var pos = 0;
+        var y = this.y
+        var x = this.x;
+        var direction = this.direction;
         var id = setInterval(move, Invader.speed);
         function move() {
-            if(pos >= 500) {
+            if(y >= 500) {
                 try {
                     thisElement.parentNode.removeChild(thisElement);
                     console.log('you suck');
@@ -44,9 +45,13 @@ class Invader extends HTMLElement {
                 }
                 clearInterval(id);
             } else {
-                pos++;
-                thisElement.style.top =  pos + 'px';
-                // thisElement.style.left = startX + pos + 'px';
+                y++;
+                x = x + direction;
+                thisElement.style.top = y + 'px';
+                thisElement.style.left = x + 'px';
+                if((x > window.innerWidth) || (x < 0)) {
+                    direction *= -1;
+                }
             }
         }
     }
