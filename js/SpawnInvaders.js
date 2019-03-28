@@ -1,10 +1,10 @@
-class TestElement extends HTMLElement {
+class Invader extends HTMLElement {
     constructor() {
         super();
 
-        if(typeof TestElement.count == 'undefined') TestElement.count = 0;
-        else TestElement.count++;
-        this.wordThing = "aylmaotest" + TestElement.count;
+        if(typeof Invader.count == 'undefined') Invader.count = 0;
+        else Invader.count++;
+        this.wordThing = "invaders" + Invader.count;
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
@@ -19,10 +19,10 @@ class TestElement extends HTMLElement {
         return this.wordThing
     }
 }
-window.customElements.define('test-element', TestElement)
+window.customElements.define('invader-element', Invader)
 
 function spawn() {
     var element = document.getElementById('invaderSpawn');
-    var test = document.createElement('test-element');
+    var test = document.createElement('invader-element');
     element.appendChild(test);
 }
