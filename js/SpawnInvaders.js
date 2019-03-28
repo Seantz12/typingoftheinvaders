@@ -1,17 +1,21 @@
+var wordArray;
+var fs;
+fetch('js/words.txt').then(response => response.text()).then(text => wordArray=text.split('\n'));
+
 class Invader extends HTMLElement {
     constructor() {
         super();
         if(typeof Invader.count == 'undefined') {
             Invader.count = 0;
             Invader.speed = 10;
+            Invader.usedNumbers = [];
         } else {
             Invader.count++;
         }
-        this.wordThing = "invaders" + Invader.count;
+        this.wordThing = wordArray[Invader.count];
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
-        // does nothing else
     }
 
     connectedCallback() {
@@ -29,13 +33,14 @@ class Invader extends HTMLElement {
         var pos = 0;
         var id = setInterval(move, Invader.speed);
         function move() {
-            if(pos == 500) {
+            if(pos >= 500) {
                 try {
                     thisElement.parentNode.removeChild(thisElement);
-                    clearInterval(id);
+                    console.log('you suck');
                 } catch(error) {
                     return;
                 }
+                clearInterval(id);
             } else {
                 pos++;
                 thisElement.style.top =  pos + 'px';

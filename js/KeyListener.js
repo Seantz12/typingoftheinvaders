@@ -3,6 +3,7 @@ var gameStart = false;
 
 document.addEventListener('keydown', function(event){
     if(event.key == 'Enter' && !gameStart) {
+        if(word == "polar") console.log('special!');
         gameStart = true;
         hideMessage();
         setInterval(spawn, 2000);
