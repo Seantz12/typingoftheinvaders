@@ -2,16 +2,14 @@ var word = ''
 
 document.addEventListener('keydown', function(event){
     if(event.key == 'Enter') {
-        try {
-            console.log('test')
-            var removedElement = document.getElementById(word);
-            removedElement.parentNode.removeChild(removedElement);
-        } catch {
-
-        }
-        console.log(word);
+        var removedElement = document.getElementById(word);
+        removedElement.parentNode.removeChild(removedElement);
         word = "";
     } else if(event.key != 'Shift'){
         word += event.key
     }
 });
+
+window.onload = function() {
+    setInterval(spawn, 2000);
+}

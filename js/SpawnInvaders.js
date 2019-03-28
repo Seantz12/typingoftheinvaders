@@ -21,7 +21,7 @@ class TestElement extends HTMLElement {
 }
 window.customElements.define('test-element', TestElement)
 
-window.onload = function() {
+function spawn() {
     var element = document.getElementById('invaderSpawn');
     var test = document.createElement('test-element');
     element.appendChild(test);
