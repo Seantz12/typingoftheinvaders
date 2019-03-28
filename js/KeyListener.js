@@ -22,3 +22,7 @@ document.addEventListener('keydown', function(event){
         word += event.key
     }
 });
+
+window.addEventListener("message", function(){
+    gameLostMessage();
+});

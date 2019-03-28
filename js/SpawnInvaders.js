@@ -11,6 +11,10 @@ class Invader extends HTMLElement {
         } else {
             Invader.count++;
         }
+        if (Invader.count == 10) {
+            Invader.speed -= 2;
+            Invader.count = 1;
+        }
         var randomIndex = Math.floor(Math.random() * wordArray.length);
         this.wordThing = wordArray[randomIndex];
         this.direction = Math.random() < 0.5 ? -1 : 1;
@@ -39,10 +43,10 @@ class Invader extends HTMLElement {
             if(y >= 500) {
                 try {
                     thisElement.parentNode.removeChild(thisElement);
-                    console.log('you suck');
                 } catch(error) {
                     return;
                 }
+                window.postMessage('game over man');
                 clearInterval(id);
             } else {
                 y++;
