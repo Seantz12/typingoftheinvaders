@@ -1,7 +1,12 @@
 var word = ''
+var gameStart = false;
 
 document.addEventListener('keydown', function(event){
-    if(event.key == 'Enter') {
+    if(event.key == 'Enter' && !gameStart) {
+        gameStart = true;
+        hideMessage();
+        setInterval(spawn, 2000);
+    } else if(event.key == 'Enter' && gameStart) {
         try {
             if(word == 'invaderSpawn') {
                 console.log('stop that'); 
@@ -16,7 +21,3 @@ document.addEventListener('keydown', function(event){
         word += event.key
     }
 });
-
-window.onload = function() {
-    setInterval(spawn, 2000);
-}

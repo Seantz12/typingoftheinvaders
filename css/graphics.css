@@ -1,0 +1,21 @@
+@font-face {
+    font-family: "Retro";
+    src: url(fff-forward/FFFFORWA.TTF) format("truetype");
+}
+
+body {
+    background-color: black;
+}
+
+invader-element {
+    color: white;
+}
+
+.normal-message {
+    font-family: "Retro";
+    color: white;
+    text-align: center;
+    margin: auto;
+    width: 50%;
+    top: 50%;
+}

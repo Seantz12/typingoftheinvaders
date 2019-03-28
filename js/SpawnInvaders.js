@@ -17,26 +17,29 @@ class Invader extends HTMLElement {
     connectedCallback() {
         this.setAttribute('id', this.key);
         this.style.position = 'absolute';
-        this.style.top = 0;
+        this.style.top = '0px';
+        this.style.left = '500px'
         this.x = 500;
         this.startMove();
-        console.log("element created!");
     }
 
     startMove() {
         var thisElement = document.getElementById(this.key);
-        console.log('time to move');
         var startX = this.x;
         var pos = 0;
         var id = setInterval(move, Invader.speed);
         function move() {
             if(pos == 500) {
-                thisElement.parentNode.removeChild(thisElement);
-                clearInterval(id);
+                try {
+                    thisElement.parentNode.removeChild(thisElement);
+                    clearInterval(id);
+                } catch(error) {
+                    return;
+                }
             } else {
                 pos++;
                 thisElement.style.top =  pos + 'px';
-                thisElement.style.left = startX + pos + 'px';
+                // thisElement.style.left = startX + pos + 'px';
             }
         }
     }
