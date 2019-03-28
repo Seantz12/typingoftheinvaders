@@ -1,9 +1,12 @@
 class Invader extends HTMLElement {
     constructor() {
         super();
-
-        if(typeof Invader.count == 'undefined') Invader.count = 0;
-        else Invader.count++;
+        if(typeof Invader.count == 'undefined') {
+            Invader.count = 0;
+            Invader.speed = 10;
+        } else {
+            Invader.count++;
+        }
         this.wordThing = "invaders" + Invader.count;
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
@@ -14,6 +17,8 @@ class Invader extends HTMLElement {
     connectedCallback() {
         this.setAttribute('id', this.key);
         this.style.position = 'absolute';
+        this.style.top = 0;
+        this.x = 500;
         this.startMove();
         console.log("element created!");
     }
@@ -21,16 +26,17 @@ class Invader extends HTMLElement {
     startMove() {
         var thisElement = document.getElementById(this.key);
         console.log('time to move');
+        var startX = this.x;
         var pos = 0;
-        var id = setInterval(move, 5);
+        var id = setInterval(move, Invader.speed);
         function move() {
             if(pos == 500) {
                 thisElement.parentNode.removeChild(thisElement);
                 clearInterval(id);
             } else {
                 pos++;
-                thisElement.style.top = pos + 'px';
-                thisElement.style.left = pos + 'px';
+                thisElement.style.top =  pos + 'px';
+                thisElement.style.left = startX + pos + 'px';
             }
         }
     }
