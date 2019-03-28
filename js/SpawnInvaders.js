@@ -12,7 +12,9 @@ class Invader extends HTMLElement {
         } else {
             Invader.count++;
         }
-        this.wordThing = wordArray[Invader.count];
+        var randomIndex = Math.floor(Math.random() * wordArray.length);
+        this.wordThing = wordArray[randomIndex];
+        Invader.usedNumbers.push(randomIndex)
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
