@@ -2,8 +2,10 @@ var word = ''
 
 document.addEventListener('keydown', function(event){
     if(event.key == 'Enter') {
-        var removedElement = document.getElementById(word);
-        removedElement.parentNode.removeChild(removedElement);
+        try {
+            var removedElement = document.getElementById(word);
+            removedElement.parentNode.removeChild(removedElement);
+        } catch {}
         word = "";
     } else if(event.key != 'Shift'){
         word += event.key
