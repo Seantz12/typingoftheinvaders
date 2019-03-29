@@ -1,3 +1,7 @@
+class ViewController {
+
+}
+
 class Invader extends HTMLElement {
     constructor() {
         super();

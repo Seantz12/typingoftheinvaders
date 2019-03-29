@@ -1,6 +1,8 @@
 class Controller {
     constructor() {
         document.addEventListener('keydown', this.readKeys);
+        this.intervalId;
+        var model = new GameData();
     }
 
     readKeys(event) {
@@ -13,7 +15,7 @@ class Controller {
             }
             word = '';
             gameStart = true;
-            intervalId = setInterval(spawn, SPAWN_RATE);
+            this.interval = setInterval(spawn, SPAWN_RATE);
         } else if(event.key == 'Enter' && gameStart) {
             try {
                 if(word == 'invaderSpawn') {
@@ -23,15 +25,15 @@ class Controller {
                 removedElement.setAttribute('hit', 'true')
                 removedElement.parentNode.removeChild(removedElement);
                 if(aliensDefeated == TOTAL_ALIENS) {
-                    clearInterval(intervalId);
+                    clearInterval(this.interval);
                     var spawnId = document.getElementById('invaderSpawn');
                     spawnId.parentNode.removeChild(spawnId);
                     window.postMessage('winner!');
                 } else if(aliensDefeated % DIFFICULTY_INCREMENT == 0) {
                     var newRate = SPAWN_RATE - (SPAWN_INCREASE_RATE * (aliensDefeated / DIFFICULTY_INCREMENT));
-                    clearInterval(intervalId);
+                    clearInterval(this.interval);
                     console.log('speed up ' + newRate);
-                    intervalId = setInterval(spawn, newRate);
+                    this.intervalId = setInterval(spawn, newRate);
                 }
                 aliensDefeated++;
                 console.log('hit! ' + aliensDefeated);
@@ -46,6 +48,14 @@ class Controller {
             word += event.key
         }
         updateWord(word);
+    }
+
+    get interval() {
+        return this.intervalId
+    }
+    
+    stopSpawning() {
+        clearInterval(this.intervalId);
     }
 }
 
@@ -62,8 +72,11 @@ window.addEventListener("message", function(message){
         console.log('testasdasd');
         gameWonMessage();
     }
-    document.removeEventListener('keydown', readKeys);
-    clearInterval(intervalId);
+    document.removeEventListener('keydown', controller.readKeys);
+    controller.stopSpawning();
+    clearInterval(controller.interval);
+    delete controller;
+    console.log('helloasdasd');
 });
 
 function updateWord(updatedWord) {

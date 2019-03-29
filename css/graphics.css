@@ -15,6 +15,7 @@ invader-element {
 }
 
 .normal-message {
+    margin-top: 20px;
     font-family: "Retro";
     color: white;
     text-align: center;
