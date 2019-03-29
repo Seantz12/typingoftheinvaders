@@ -1,11 +1,11 @@
 class Controller {
     constructor() {
+        this.spawner = new InvaderSpawner();
+        this.model = new GameData();
         var self = this;
         document.addEventListener('keydown', function(event) {
             self.readKeys(event);
         });
-        this.spawner = new InvaderSpawner();
-        this.model = new GameData();
     }
 
     readKeys(event) {
@@ -26,19 +26,19 @@ class Controller {
                 }
                 var removedElement = document.getElementById(word);
                 removedElement.parentNode.removeChild(removedElement);
-                if(aliensDefeated >= TOTAL_ALIENS) {
+                if(this.model.numAliensDefeated >= TOTAL_ALIENS) {
                     this.stopSpawning();
                     var spawnId = document.getElementById('invaderSpawn');
                     spawnId.parentNode.removeChild(spawnId);
                     window.postMessage('winner!');
-                } else if(aliensDefeated % DIFFICULTY_INCREMENT == 0) {
-                    var newRate = SPAWN_RATE - (SPAWN_INCREASE_RATE * (aliensDefeated / DIFFICULTY_INCREMENT));
+                } else if(this.model.numAliensDefeated % DIFFICULTY_INCREMENT == 0) {
+                    var newRate = SPAWN_RATE - (SPAWN_INCREASE_RATE * (this.model.numAliensDefeated / DIFFICULTY_INCREMENT));
                     this.stopSpawning();
                     console.log('speed up ' + newRate);
                     this.spawner.startSpawning();
                 }
-                aliensDefeated++;
-                console.log('hit! ' + aliensDefeated);
+                this.model.alienDestroyed();
+                console.log('hit! ' + this.model.numAliensDefeated);
             } catch(error) {
                 console.log(error);
                 console.log('miss!');
@@ -67,8 +67,6 @@ class Controller {
 }
 
 var controller = new Controller();
-
-console.log(controller.spawner)
 
 window.addEventListener("message", function(message){
     console.log(message.data);

@@ -1,10 +1,6 @@
 class HTMLEditor {
     constructor(view) {
-        this.textField;
-        var self = this;
-        view.addEventListener('onload', function() {
-            self.findTextField(view);
-        });
+        this.textField = document.getElementById('textInput');
         console.log(this.textField);
     }
 

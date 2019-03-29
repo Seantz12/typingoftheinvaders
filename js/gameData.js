@@ -5,10 +5,10 @@ class GameData {
         this.wordfile = 'js/words.txt';
         this.wordArray;
         var fs;
-        fetch(wordfile).then(response => response.text()).then(text => wordArray=text.split('\n'));
+        fetch(wordfile).then(response => response.text()).then(text => this.wordArray=text.split('\n'));
     }
 
-    get getAliensDefeated() {
+    get numAliensDefeated() {
         return this.aliensDefeated;
     }
 

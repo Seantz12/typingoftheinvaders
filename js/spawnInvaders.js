@@ -16,12 +16,9 @@ class InvaderSpawner {
     }
 
     spawn() {
-        var spawned = 0;
-        if(spawned <= 15) {
-            var element = document.getElementById('invaderSpawn');
-            var test = new Invader()
-            element.appendChild(test);
-        }
+        var element = document.getElementById('invaderSpawn');
+        var test = new Invader()
+        element.appendChild(test);
     }
 }
 
