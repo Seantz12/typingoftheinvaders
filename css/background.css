@@ -23,4 +23,5 @@
 @keyframes starAnimation {
 	100% {
 		background-position: 0px -10000px;
+  }
 }
