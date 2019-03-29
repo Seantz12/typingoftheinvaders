@@ -1,5 +1,6 @@
 function readKeys(event) {
     if(event.key == 'Enter' && !gameStart) {
+        hideMessage();
         if(word == "polar") {
             special = true;
             wordfile = 'js/polar.txt';
@@ -7,7 +8,6 @@ function readKeys(event) {
         }
         word = '';
         gameStart = true;
-        hideMessage();
         intervalId = setInterval(spawn, SPAWN_RATE);
     } else if(event.key == 'Enter' && gameStart) {
         try {

@@ -11,14 +11,18 @@ function hideMessage() {
     }, 50);
 }
 
+function polarMessage() {
+
+}
+
 function gameLostMessage() {
     console.log('test');
     var element = document.getElementById('gameOver');
     var op = 0.1;
+    element.style.display = '';
     var timer = setInterval(function() {
         if(op >= 1) {
             clearInterval(timer);
-            element.style.display = '';
         }
         element.style.opacity = op;
         op += op *0.2;
@@ -29,10 +33,10 @@ function gameWonMessage() {
     console.log('won!');
     var element = document.getElementById('gameWon');
     var op = 0.1;
+    element.style.display = '';
     var timer = setInterval(function() {
         if(op >= 1) {
             clearInterval(timer);
-            element.style.display = '';
         }
         element.style.opacity = op;
         op += op *0.2;

@@ -1,11 +1,11 @@
 class Invader extends HTMLElement {
     constructor() {
         super();
-        if(typeof Invader.hit == 'undefined') {
-            Invader.hit = 0;
+        if(typeof Invader.count == 'undefined') {
+            Invader.count = 0;
             Invader.speed = 10;
         } 
-        if (Invader.hit % DIFFICULTY_INCREMENT == 0 && Invader.speed > SPEED_INCREASE_RATE) {
+        if (Invader.count % DIFFICULTY_INCREMENT == 0 && Invader.speed > SPEED_INCREASE_RATE) {
             console.log('speed up!!!!!');
             Invader.speed -= SPEED_INCREASE_RATE;
         }
@@ -29,6 +29,7 @@ class Invader extends HTMLElement {
     connectedCallback() {
         console.log(this.key);
         this.setAttribute('id', this.key);
+        Invader.count++; // This triggers when the alien hits the ground too
         this.style.position = 'absolute';
         this.style.top = '0px';
         this.style.left = '500px'
@@ -39,7 +40,6 @@ class Invader extends HTMLElement {
 
     // On deletion of custom element
     disconnectedCallback() {
-        Invader.hit++; // This triggers when the alien hits the ground too
         clearInterval(this.interval);
     }
 
