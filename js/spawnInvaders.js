@@ -1,17 +1,14 @@
-var wordArray;
-var fs;
-fetch('js/words.txt').then(response => response.text()).then(text => wordArray=text.split('\n'));
-
 class Invader extends HTMLElement {
     constructor() {
         super();
-        if(typeof Invader.hit == 'undefined') {
-            Invader.hit = 0;
+        if(typeof Invader.count == 'undefined') {
+            Invader.count = 0;
             Invader.speed = 10;
+            Invader.hit = 0;
         } 
-        if (Invader.hit % DIFFICULTY_INCREMENT == 0 && Invader.speed > 2) {
+        if (Invader.count % DIFFICULTY_INCREMENT == 0 && Invader.speed > SPEED_INCREASE_RATE) {
             console.log('speed up!!!!!');
-            Invader.speed -= 2;
+            Invader.speed -= SPEED_INCREASE_RATE;
         }
         var randomIndex = Math.floor(Math.random() * wordArray.length);
         this.wordThing = wordArray[randomIndex];
@@ -20,23 +17,30 @@ class Invader extends HTMLElement {
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
+        var image = document.createElement('img');
+        image.src = 'css/images/alien.png';
+        image.alt = 'Error!';
+        image.style.display = 'block';
+        image.style.width = '50%';
+        image.style.margin = 'auto';
+        shadow.appendChild(image);
     }
 
     // On creation of custom element
     connectedCallback() {
         console.log(this.key);
         this.setAttribute('id', this.key);
+        Invader.count++; // This triggers when the alien hits the ground too
         this.style.position = 'absolute';
         this.style.top = '0px';
         this.style.left = '500px'
         this.y = 0;
-        this.x = Math.floor(Math.random() * window.innerWidth);
+        this.x = Math.floor(Math.random() * (window.innerWidth - this.offsetWidth - 50));
         this.startMove();
     }
 
     // On deletion of custom element
     disconnectedCallback() {
-        Invader.hit++; // This triggers when the alien hits the ground too
         clearInterval(this.interval);
     }
 
@@ -47,7 +51,7 @@ class Invader extends HTMLElement {
         var direction = this.direction;
         this.interval = setInterval(move, Invader.speed);
         function move() {
-            if(y >= 500) {
+            if(y >= (window.innerHeight - 100)) {
                 try {
                     thisElement.parentNode.removeChild(thisElement);
                 } catch(error) {
@@ -59,7 +63,7 @@ class Invader extends HTMLElement {
                 x = x + direction;
                 thisElement.style.top = y + 'px';
                 thisElement.style.left = x + 'px';
-                if((x > window.innerWidth) || (x < 0)) {
+                if((x + thisElement.offsetWidth > window.innerWidth) || (x < 0)) {
                     direction *= -1;
                 }
             }
@@ -76,7 +80,7 @@ function spawn() {
     var spawned = 0;
     if(spawned <= 15) {
         var element = document.getElementById('invaderSpawn');
-        var test = document.createElement('invader-element');
+        var test = new Invader()
         element.appendChild(test);
     }
 }

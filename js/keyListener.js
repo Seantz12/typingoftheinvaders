@@ -1,19 +1,17 @@
-var word = ''
-var intervalId = '';
-var gameStart = false;
-var gameLostDisplayed = false;
-
 function readKeys(event) {
     if(event.key == 'Enter' && !gameStart) {
-        if(word == "polar") console.log('special!');
+        hideMessage();
+        if(word == "polar") {
+            special = true;
+            wordfile = 'js/polar.txt';
+            fetch(wordfile).then(response => response.text()).then(text => wordArray=text.split('\n'))
+        }
         word = '';
         gameStart = true;
-        hideMessage();
         intervalId = setInterval(spawn, SPAWN_RATE);
     } else if(event.key == 'Enter' && gameStart) {
         try {
             if(word == 'invaderSpawn') {
-                console.log('stop that'); 
                 throw Error;
             }
             var removedElement = document.getElementById(word);
