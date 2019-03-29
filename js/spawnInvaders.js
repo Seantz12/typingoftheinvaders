@@ -4,6 +4,7 @@ class Invader extends HTMLElement {
         if(typeof Invader.count == 'undefined') {
             Invader.count = 0;
             Invader.speed = 10;
+            Invader.hit = 0;
         } 
         if (Invader.count % DIFFICULTY_INCREMENT == 0 && Invader.speed > SPEED_INCREASE_RATE) {
             console.log('speed up!!!!!');
@@ -79,7 +80,7 @@ function spawn() {
     var spawned = 0;
     if(spawned <= 15) {
         var element = document.getElementById('invaderSpawn');
-        var test = document.createElement('invader-element');
+        var test = new Invader()
         element.appendChild(test);
     }
 }
