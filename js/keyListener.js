@@ -1,8 +1,11 @@
 class Controller {
     constructor() {
-        document.addEventListener('keydown', this.readKeys);
-        this.intervalId;
-        var model = new GameData();
+        var self = this;
+        document.addEventListener('keydown', function(event) {
+            self.readKeys(event);
+        });
+        this.spawner = new InvaderSpawner();
+        this.model = new GameData();
     }
 
     readKeys(event) {
@@ -15,7 +18,7 @@ class Controller {
             }
             word = '';
             gameStart = true;
-            this.interval = setInterval(spawn, SPAWN_RATE);
+            this.spawner.startSpawning();
         } else if(event.key == 'Enter' && gameStart) {
             try {
                 if(word == 'invaderSpawn') {
@@ -25,15 +28,15 @@ class Controller {
                 removedElement.setAttribute('hit', 'true')
                 removedElement.parentNode.removeChild(removedElement);
                 if(aliensDefeated == TOTAL_ALIENS) {
-                    clearInterval(this.interval);
+                    this.spawner.stopSpawning();
                     var spawnId = document.getElementById('invaderSpawn');
                     spawnId.parentNode.removeChild(spawnId);
                     window.postMessage('winner!');
                 } else if(aliensDefeated % DIFFICULTY_INCREMENT == 0) {
                     var newRate = SPAWN_RATE - (SPAWN_INCREASE_RATE * (aliensDefeated / DIFFICULTY_INCREMENT));
-                    clearInterval(this.interval);
+                    this.spawner.stopSpawning();
                     console.log('speed up ' + newRate);
-                    this.intervalId = setInterval(spawn, newRate);
+                    this.spawner.startSpawning();
                 }
                 aliensDefeated++;
                 console.log('hit! ' + aliensDefeated);
@@ -55,13 +58,13 @@ class Controller {
     }
     
     stopSpawning() {
-        clearInterval(this.intervalId);
+        this.spawner.stopSpawning();
     }
 }
 
 var controller = new Controller();
 
-document.addEventListener('keydown', controller.readKeys);
+console.log(controller.spawner)
 
 window.addEventListener("message", function(message){
     console.log(message.data);
@@ -74,7 +77,6 @@ window.addEventListener("message", function(message){
     }
     document.removeEventListener('keydown', controller.readKeys);
     controller.stopSpawning();
-    clearInterval(controller.interval);
     delete controller;
     console.log('helloasdasd');
 });

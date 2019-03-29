@@ -1,5 +1,19 @@
-class ViewController {
+class InvaderSpawner {
+    constructor() {
+        this.count = 0;
+        this.speed = 0;
+        this.hit = 0;
+        this.intervalId;
+        console.log('created');
+    }
 
+    startSpawning() {
+        this.intervalId = setInterval(spawn, SPAWN_RATE);
+    }
+
+    stopSpawning() {
+        clearInterval(this.intervalId);
+    }
 }
 
 class Invader extends HTMLElement {
