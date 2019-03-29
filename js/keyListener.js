@@ -5,7 +5,11 @@ var gameLostDisplayed = false;
 
 function readKeys(event) {
     if(event.key == 'Enter' && !gameStart) {
-        if(word == "polar") console.log('special!');
+        if(word == "polar") {
+            special = true;
+            wordfile = 'js/polar.txt';
+            fetch(wordfile).then(response => response.text()).then(text => wordArray=text.split('\n'))
+        }
         word = '';
         gameStart = true;
         hideMessage();

@@ -1,6 +1,6 @@
 var wordArray;
 var fs;
-fetch('js/words.txt').then(response => response.text()).then(text => wordArray=text.split('\n'));
+fetch(wordfile).then(response => response.text()).then(text => wordArray=text.split('\n'));
 
 class Invader extends HTMLElement {
     constructor() {
@@ -37,7 +37,7 @@ class Invader extends HTMLElement {
         this.style.top = '0px';
         this.style.left = '500px'
         this.y = 0;
-        this.x = Math.floor(Math.random() * window.innerWidth);
+        this.x = Math.floor(Math.random() * (window.innerWidth - this.offsetWidth - 50));
         this.startMove();
     }
 
