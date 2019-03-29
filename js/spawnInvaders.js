@@ -66,7 +66,7 @@ class Invader extends HTMLElement {
                 x = x + direction;
                 thisElement.style.top = y + 'px';
                 thisElement.style.left = x + 'px';
-                if((x > window.innerWidth) || (x < 0)) {
+                if((x + thisElement.offsetWidth > window.innerWidth) || (x < 0)) {
                     direction *= -1;
                 }
             }
