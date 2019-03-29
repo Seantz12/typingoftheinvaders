@@ -4,10 +4,10 @@ var gameStart = false;
 var gameLostDisplayed = false;
 
 function readKeys(event) {
-    var aliensDefeated = 0;
     var spawnRate = 1000;
     if(event.key == 'Enter' && !gameStart) {
         if(word == "polar") console.log('special!');
+        word = '';
         gameStart = true;
         hideMessage();
         intervalId = setInterval(spawn, spawnRate);
@@ -18,24 +18,32 @@ function readKeys(event) {
                 throw Error;
             }
             var removedElement = document.getElementById(word);
+            removedElement.setAttribute('hit', 'true')
             removedElement.parentNode.removeChild(removedElement);
-            if(aliensDefeated == 15) {
+            if(aliensDefeated == 4) {
                 clearInterval(intervalId);
-            }
-            if(aliensDefeated % 10 == 0) {
+                var spawnId = document.getElementById('invaderSpawn');
+                spawnId.parentNode.removeChild(spawnId);
+                window.postMessage('winner!');
+            } else if(aliensDefeated % 10 == 0) {
+                console.log('speed up');
                 spawnRate -= 100;
                 clearInterval(intervalId);
                 intervalId = setInterval(spawn, spawnRate);
             }
-            console.log('hit!');
+            aliensDefeated++;
+            console.log('hit! ' + aliensDefeated);
         } catch(error) {
             console.log('miss!');
         }
         word = "";
         event.key = '';
+    } else if(event.key == 'Backspace') {
+        word = word.slice(0, -1);
     } else if(event.key != 'Shift'){
         word += event.key
     }
+    updateWord(word);
 }
 
 document.addEventListener('keydown', readKeys);
@@ -52,3 +60,8 @@ window.addEventListener("message", function(message){
     document.removeEventListener('keydown', readKeys);
     clearInterval(intervalId);
 });
+
+function updateWord(updatedWord) {
+    var textElement = document.getElementById('textInput');
+    textElement.innerHTML = updatedWord;
+}

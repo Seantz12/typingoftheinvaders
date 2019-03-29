@@ -20,3 +20,15 @@ invader-element {
     width: 50%;
     top: 50%;
 }
+
+.text-input {
+    font-family: "Retro";
+    color: white;
+    text-align: center;
+    position:fixed;
+    left:0px;
+    bottom:0px;
+    height:30px;
+    width:100%;
+    margin-bottom: 10px;
+ }
