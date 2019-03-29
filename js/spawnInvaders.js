@@ -20,6 +20,13 @@ class Invader extends HTMLElement {
         const shadow = this.attachShadow({mode: 'open'});
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
+        var image = document.createElement('img');
+        image.src = 'css/images/alien.png';
+        image.alt = 'Error!';
+        image.style.display = 'block';
+        image.style.width = '50%';
+        image.style.margin = 'auto';
+        shadow.appendChild(image);
     }
 
     // On creation of custom element

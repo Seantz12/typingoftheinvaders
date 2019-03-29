@@ -10,6 +10,7 @@ body {
 invader-element {
     font-family: "Retro";
     color: white;
+    text-align: center;
 }
 
 .normal-message {
