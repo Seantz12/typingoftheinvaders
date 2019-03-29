@@ -11,7 +11,7 @@ class Invader extends HTMLElement {
         } else {
             Invader.count++;
         }
-        if (Invader.count == 10) {
+        if (Invader.count % 10 == 0 && Invader.speed > 2) {
             Invader.speed -= 2;
             Invader.count = 1;
         }
