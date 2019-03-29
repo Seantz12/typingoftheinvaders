@@ -1,6 +1,8 @@
 class GameData {
     constructor() {
         this.aliensDefeated = 0;
+        this.gameStart = false;
+        this.gameLostDisplayed = false;
         this.special = false;
         this.wordfile = 'js/words.txt';
         this.wordArray;
@@ -27,4 +29,13 @@ class GameData {
     get getWordArray() {
         return this.wordArray;
     }
+
+    startGame() {
+        this.gameStart = true;
+    }
+
+    get gameStarted() {
+        return this.gameStart;
+    }
+
 }

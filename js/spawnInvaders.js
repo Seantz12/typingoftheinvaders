@@ -42,7 +42,11 @@ class Invader extends HTMLElement {
         var text = document.createTextNode(this.wordThing);
         shadow.appendChild(text);
         var image = document.createElement('img');
-        image.src = 'css/images/alien.png';
+        if(special) {
+            image.src = 'css/images/Adblock_logo.png';
+        } else {
+            image.src = 'css/images/alien.png';
+        }
         image.alt = 'Error!';
         image.style.display = 'block';
         image.style.width = '50%';
@@ -54,7 +58,7 @@ class Invader extends HTMLElement {
     connectedCallback() {
         console.log(this.key);
         this.setAttribute('id', this.key);
-        Invader.count++; // This triggers when the alien hits the ground too
+        Invader.count++; 
         this.style.position = 'absolute';
         this.style.top = '0px';
         this.style.left = '500px'
