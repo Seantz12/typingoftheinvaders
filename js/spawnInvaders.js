@@ -5,15 +5,12 @@ fetch('js/words.txt').then(response => response.text()).then(text => wordArray=t
 class Invader extends HTMLElement {
     constructor() {
         super();
-        if(typeof Invader.count == 'undefined') {
-            Invader.count = 0;
+        if(typeof Invader.hit == 'undefined') {
+            Invader.hit = 0;
             Invader.speed = 10;
-        } else {
-            Invader.count++;
-        }
-        if (Invader.count % 10 == 0 && Invader.speed > 2) {
+        } 
+        if (Invader.hit % 10 == 0 && Invader.speed > 2) {
             Invader.speed -= 2;
-            Invader.count = 1;
         }
         var randomIndex = Math.floor(Math.random() * wordArray.length);
         this.wordThing = wordArray[randomIndex];
@@ -31,6 +28,16 @@ class Invader extends HTMLElement {
         this.y = 0;
         this.x = Math.floor(Math.random() * window.innerWidth);
         this.startMove();
+    }
+
+    disconnectedCallback() {
+        Invader.hit++;
+        console.log("i've been removed!");
+        console.log(Invader.hit);
+        if(Invader.hit == 15) {
+            console.log('hello?');
+            window.postMessage('winner!');
+        }
     }
 
     startMove() {
@@ -67,7 +74,10 @@ class Invader extends HTMLElement {
 window.customElements.define('invader-element', Invader)
 
 function spawn() {
-    var element = document.getElementById('invaderSpawn');
-    var test = document.createElement('invader-element');
-    element.appendChild(test);
+    var spawned = 0;
+    if(spawned <= 15) {
+        var element = document.getElementById('invaderSpawn');
+        var test = document.createElement('invader-element');
+        element.appendChild(test);
+    }
 }

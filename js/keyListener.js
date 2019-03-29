@@ -19,6 +19,9 @@ function readKeys(event) {
             }
             var removedElement = document.getElementById(word);
             removedElement.parentNode.removeChild(removedElement);
+            if(aliensDefeated == 15) {
+                clearInterval(intervalId);
+            }
             if(aliensDefeated % 10 == 0) {
                 spawnRate -= 100;
                 clearInterval(intervalId);
@@ -38,11 +41,13 @@ function readKeys(event) {
 document.addEventListener('keydown', readKeys);
 
 window.addEventListener("message", function(message){
+    console.log(message.data);
     if(message.data == 'game over man' && !gameLostDisplayed) {
         gameLostMessage();
         gameLostDisplayed = true;
-    } else if(message.data == 'winner') {
-        gameWinMessage();
+    } else if(message.data == 'winner!') {
+        console.log('testasdasd');
+        gameWonMessage();
     }
     document.removeEventListener('keydown', readKeys);
     clearInterval(intervalId);
