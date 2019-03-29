@@ -8,11 +8,20 @@ class InvaderSpawner {
     }
 
     startSpawning() {
-        this.intervalId = setInterval(spawn, SPAWN_RATE);
+        this.intervalId = setInterval(this.spawn, SPAWN_RATE);
     }
 
     stopSpawning() {
         clearInterval(this.intervalId);
+    }
+
+    spawn() {
+        var spawned = 0;
+        if(spawned <= 15) {
+            var element = document.getElementById('invaderSpawn');
+            var test = new Invader()
+            element.appendChild(test);
+        }
     }
 }
 
@@ -94,11 +103,4 @@ class Invader extends HTMLElement {
 }
 window.customElements.define('invader-element', Invader)
 
-function spawn() {
-    var spawned = 0;
-    if(spawned <= 15) {
-        var element = document.getElementById('invaderSpawn');
-        var test = new Invader()
-        element.appendChild(test);
-    }
-}
+

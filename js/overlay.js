@@ -1,3 +1,35 @@
+class HTMLEditor {
+    constructor(view) {
+        this.textField;
+        var self = this;
+        view.addEventListener('onload', function() {
+            self.findTextField(view);
+        });
+        console.log(this.textField);
+    }
+
+    findTextField() {
+        this.textField = view.getElementById('textInput');
+    }
+
+    addCharacter(character) {
+        console.log(this.textField.innerHTML);
+        this.textField.innerHTML = this.textField.innerHTML + character;
+    }
+    
+    deleteCharacter() {
+        this.textField.innerHTML = this.textField.innerHTML.slice(0, -1);
+    }
+
+    clearWord() {
+        this.textField.innerHTML = '';
+    }
+
+    getWord() {
+        return this.textField.innerHTML;
+    }
+}
+
 function hideMessage() {
     var element = document.getElementById('welcomeMessage');
     var op = 1;

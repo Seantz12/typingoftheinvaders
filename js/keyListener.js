@@ -25,32 +25,31 @@ class Controller {
                     throw Error;
                 }
                 var removedElement = document.getElementById(word);
-                removedElement.setAttribute('hit', 'true')
                 removedElement.parentNode.removeChild(removedElement);
-                if(aliensDefeated == TOTAL_ALIENS) {
-                    this.spawner.stopSpawning();
+                if(aliensDefeated >= TOTAL_ALIENS) {
+                    this.stopSpawning();
                     var spawnId = document.getElementById('invaderSpawn');
                     spawnId.parentNode.removeChild(spawnId);
                     window.postMessage('winner!');
                 } else if(aliensDefeated % DIFFICULTY_INCREMENT == 0) {
                     var newRate = SPAWN_RATE - (SPAWN_INCREASE_RATE * (aliensDefeated / DIFFICULTY_INCREMENT));
-                    this.spawner.stopSpawning();
+                    this.stopSpawning();
                     console.log('speed up ' + newRate);
                     this.spawner.startSpawning();
                 }
                 aliensDefeated++;
                 console.log('hit! ' + aliensDefeated);
             } catch(error) {
+                console.log(error);
                 console.log('miss!');
             }
             word = "";
-            event.key = '';
         } else if(event.key == 'Backspace') {
             word = word.slice(0, -1);
         } else if(event.key != 'Shift'){
             word += event.key
         }
-        updateWord(word);
+        this.updateWord(word);
     }
 
     get interval() {
@@ -59,6 +58,11 @@ class Controller {
     
     stopSpawning() {
         this.spawner.stopSpawning();
+    }
+
+    updateWord(updatedWord) {
+        var textElement = document.getElementById('textInput');
+        textElement.innerHTML = updatedWord;
     }
 }
 
@@ -80,8 +84,3 @@ window.addEventListener("message", function(message){
     delete controller;
     console.log('helloasdasd');
 });
-
-function updateWord(updatedWord) {
-    var textElement = document.getElementById('textInput');
-    textElement.innerHTML = updatedWord;
-}
