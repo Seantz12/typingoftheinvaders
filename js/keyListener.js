@@ -4,13 +4,12 @@ var gameStart = false;
 var gameLostDisplayed = false;
 
 function readKeys(event) {
-    var spawnRate = 1000;
     if(event.key == 'Enter' && !gameStart) {
         if(word == "polar") console.log('special!');
         word = '';
         gameStart = true;
         hideMessage();
-        intervalId = setInterval(spawn, spawnRate);
+        intervalId = setInterval(spawn, SPAWN_RATE);
     } else if(event.key == 'Enter' && gameStart) {
         try {
             if(word == 'invaderSpawn') {
@@ -20,16 +19,16 @@ function readKeys(event) {
             var removedElement = document.getElementById(word);
             removedElement.setAttribute('hit', 'true')
             removedElement.parentNode.removeChild(removedElement);
-            if(aliensDefeated == 4) {
+            if(aliensDefeated == TOTAL_ALIENS) {
                 clearInterval(intervalId);
                 var spawnId = document.getElementById('invaderSpawn');
                 spawnId.parentNode.removeChild(spawnId);
                 window.postMessage('winner!');
-            } else if(aliensDefeated % 10 == 0) {
-                console.log('speed up');
-                spawnRate -= 100;
+            } else if(aliensDefeated % DIFFICULTY_INCREMENT == 0) {
+                var newRate = SPAWN_RATE - (SPAWN_INCREASE_RATE * (aliensDefeated / DIFFICULTY_INCREMENT));
                 clearInterval(intervalId);
-                intervalId = setInterval(spawn, spawnRate);
+                console.log('speed up ' + newRate);
+                intervalId = setInterval(spawn, newRate);
             }
             aliensDefeated++;
             console.log('hit! ' + aliensDefeated);

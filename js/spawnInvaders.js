@@ -9,7 +9,7 @@ class Invader extends HTMLElement {
             Invader.hit = 0;
             Invader.speed = 10;
         } 
-        if (Invader.hit % 10 == 0 && Invader.speed > 2) {
+        if (Invader.hit % DIFFICULTY_INCREMENT == 0 && Invader.speed > 2) {
             console.log('speed up!!!!!');
             Invader.speed -= 2;
         }
@@ -22,6 +22,7 @@ class Invader extends HTMLElement {
         shadow.appendChild(text);
     }
 
+    // On creation of custom element
     connectedCallback() {
         console.log(this.key);
         this.setAttribute('id', this.key);
@@ -33,8 +34,9 @@ class Invader extends HTMLElement {
         this.startMove();
     }
 
+    // On deletion of custom element
     disconnectedCallback() {
-        Invader.hit++;
+        Invader.hit++; // This triggers when the alien hits the ground too
         clearInterval(this.interval);
     }
 
