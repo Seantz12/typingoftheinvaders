@@ -9,9 +9,9 @@ class Invader extends HTMLElement {
             Invader.hit = 0;
             Invader.speed = 10;
         } 
-        if (Invader.hit % DIFFICULTY_INCREMENT == 0 && Invader.speed > 2) {
+        if (Invader.hit % DIFFICULTY_INCREMENT == 0 && Invader.speed > SPEED_INCREASE_RATE) {
             console.log('speed up!!!!!');
-            Invader.speed -= 2;
+            Invader.speed -= SPEED_INCREASE_RATE;
         }
         var randomIndex = Math.floor(Math.random() * wordArray.length);
         this.wordThing = wordArray[randomIndex];
