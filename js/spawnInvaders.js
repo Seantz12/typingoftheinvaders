@@ -54,7 +54,7 @@ class Invader extends HTMLElement {
         var direction = this.direction;
         this.interval = setInterval(move, Invader.speed);
         function move() {
-            if(y >= 500) {
+            if(y >= (window.innerHeight - 100)) {
                 try {
                     thisElement.parentNode.removeChild(thisElement);
                 } catch(error) {

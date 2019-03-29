@@ -7,7 +7,7 @@
         const SPAWN_RATE = 1000;
         const SPEED_INCREASE_RATE = 2;
         const SPAWN_INCREASE_RATE = 100;
-        const DIFFICULTY_INCREMENT = 5;
+        const DIFFICULTY_INCREMENT = 6;
     </script>
     <script src='js/overlay.js'></script>
     <script src='js/spawnInvaders.js'></script>
@@ -17,22 +17,24 @@
 <body>
 <div class="welcome-message" id="welcomeMessage">
     <div class="normal-message">
-        <h1>YOU MUST DEFEND THE EARTH AGAINST ALIEN INVADERS.</h1>
-        <h2>ILLITERATE ALIEN INVADERS.</h2>
-        <h2>SHOW THEM THAT WORDS CAN HURT</h2>
+        <h1>YOU MUST DEFEND THE EARTH AGAINST ILLITERATE ALIEN INVADERS.</h1>
+        <h2>SHOW THEM THAT WORDS HURT</h2>
+        <h2>HOW TO PLAY:</h2>
+        <h3>TYPE THE WORD AND PRESS ENTER TO SHOOT<h3>
     </div>
 </div>
 <div id="invaderSpawn"></div>
 
 <div class="game-over" id="gameOver" style="display: none;">
     <div class="normal-message">
-        <h1>ALIENS HAVE WON</h1>
+        <h1>YOU LOST...</h1>
+        <h2>IT'S OK, TYPING'S HARD</h2>
     </div>
 </div>
 <div class="game-won" id="gameWon" style="display: none;">
     <div class="normal-message">
         <h1>CONGRATULATIONS!</h1>
-        <h2>YOU HAVE SHOWN THAT READING IS POWER</h2>
+        <h2>READING IS POWER!</h2>
     </div>
 </div>
 <div class="text-input" id="textInput"></div>
