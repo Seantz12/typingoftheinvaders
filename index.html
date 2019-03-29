@@ -5,6 +5,14 @@
         var aliensDefeated = 0;
         var special = false;
         var wordfile = 'js/words.txt';
+        var word = ''
+        var intervalId = '';
+        var gameStart = false;
+        var gameLostDisplayed = false;
+        var wordArray;
+        var fs;
+        fetch(wordfile).then(response => response.text()).then(text => wordArray=text.split('\n'));
+
         const TOTAL_ALIENS = 30;
         const SPAWN_RATE = 1000;
         const SPEED_INCREASE_RATE = 2;

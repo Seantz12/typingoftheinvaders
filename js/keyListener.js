@@ -1,8 +1,3 @@
-var word = ''
-var intervalId = '';
-var gameStart = false;
-var gameLostDisplayed = false;
-
 function readKeys(event) {
     if(event.key == 'Enter' && !gameStart) {
         if(word == "polar") {
@@ -17,7 +12,6 @@ function readKeys(event) {
     } else if(event.key == 'Enter' && gameStart) {
         try {
             if(word == 'invaderSpawn') {
-                console.log('stop that'); 
                 throw Error;
             }
             var removedElement = document.getElementById(word);

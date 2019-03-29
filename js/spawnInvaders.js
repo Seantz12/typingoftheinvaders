@@ -1,7 +1,3 @@
-var wordArray;
-var fs;
-fetch(wordfile).then(response => response.text()).then(text => wordArray=text.split('\n'));
-
 class Invader extends HTMLElement {
     constructor() {
         super();
